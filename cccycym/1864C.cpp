@@ -9,6 +9,6 @@ const int N = 1E5 + 10, mod = 1E9 + 7;
 
 int main()
 {
-
+    
     return 0;
 }
