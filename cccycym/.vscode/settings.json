@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "*.spec": "bat",
-        "chrono": "cpp",
-        "random": "cpp",
-        "limits": "cpp",
-        "valarray": "cpp"
-    }
-}
