@@ -78,8 +78,53 @@ namespace virmar {
 
 using namespace virmar;
 
+const int N = 1E5 + 6, M = N << 1;
+
+struct {int next, to;} e[M];
+int head[N], num;
+
+void add(int from, int to) {
+    e[num] = {head[from], to};
+    head[from] = num++;
+}
+
+int n, m;
+int in_deg[N];
+
 void doit() {
-    
+    mset(head, -1), num = 0;
+    mset(in_deg, 0);
+
+    map<pair<int, int>, bool> H;
+
+    cin >> n >> m;
+    bool flag = false;
+    for (int i = 1; i <= m; i++) {
+        int u, v; cin >> u >> v;
+        if (u == v) flag = true;
+        if (H[make_pair(u, v)]) continue;
+        H[make_pair(u, v)] = true;
+        add(v, u);
+        in_deg[u]++;
+    }
+    if (flag) return puts("Impossible!"), void();
+    priority_queue<int, vector<int>, less<int> > q;
+    for (int i = 1; i <= n; i++)
+        if (in_deg[i] == 0) q.push(i);
+    vector<int> ans;
+    while (q.size()) {
+        int now = q.top(); q.pop();
+        ans.push_back(now);
+        for (int i = head[now]; ~i; i = e[i].next) {
+            int to = e[i].to;
+            in_deg[to]--;
+            if (in_deg[to] == 0) q.push(to);
+        }
+    }
+    if (ans.size() != n) return puts("Impossible! "), void();
+    reverse(ans.begin(), ans.end());
+    for (auto t: ans) cout << t << ' ';
+    cout << endl;
 }
 
 int main() {

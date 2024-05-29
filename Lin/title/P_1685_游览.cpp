@@ -78,14 +78,48 @@ namespace virmar {
 
 using namespace virmar;
 
+const int N = 1E4 + 6, M = 1E5 + 6;
+const int MOD = 1E4;
+
+struct {int next, to, dis;} e[M];
+int head[N], num;
+
+void add(int from, int to, int dis) {
+    e[num] = {head[from], to, dis};
+    head[from] = num++;
+}
+
+int n, m;
+int st, ed, t0;
+int d[N], cnt[N];
+int in_deg[N];
+
+void dfs(int now) {
+    for (int i = head[now]; ~i; i = e[i].next) {
+        int to = e[i].to, dis = e[i].dis;
+        d[to] = (d[to] + d[now] + cnt[now] * dis) % MOD;
+        cnt[to] = (cnt[to] + cnt[now]) % MOD;
+        in_deg[to]--;
+        if (!in_deg[to]) dfs(to);
+    }
+}
+
 void doit() {
-    
+    mset(head, -1);
+    cin >> n >> m >> st >> ed >> t0;
+    for (int i = 1; i <= m; i++) {
+        int u, v, w; cin >> u >> v >> w;
+        add(u, v, w), in_deg[v]++;
+    }
+    cnt[st] = 1;
+    dfs(st);
+    cout << (d[ed] + (cnt[ed] - 1) * t0) % MOD << endl;
 }
 
 int main() {
     READ_ARC = false;
     // optimize();
-    int T = 1; cin >> T;
+    int T = 1; // cin >> T;
     while (T--) doit();
 }
 
