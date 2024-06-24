@@ -18,7 +18,7 @@ namespace virmar {
     using namespace std;
     using ll = long long;
 
-    const int N_BIT = 100000, N_MTX = 100;
+    const int N_BIT = 500006, N_MTX = 100;
     const int INF = 0X3F3F3F3F;
 
     bool READ_ARC = false;
@@ -103,10 +103,11 @@ namespace virmar {
         }
     };
 
+    template<typename T>
     class BinaryIndexedTree{
     public:
         int n;
-        int tr[N_BIT];
+        T tr[N_BIT];
 
     public:
         void init(int n) {
@@ -116,13 +117,13 @@ namespace virmar {
 
         int lowbit(int x) {return x & -x;}
 
-        void add(int p, int x) {
+        void add(int p, T x) {
             for (int i = p; i <= n; i += lowbit(i))
                 tr[i] += x;
         }
 
-        int get(int p) {
-            int res = 0;
+        T get(int p) {
+            T res = 0;
             for (int i = p; i; i -= lowbit(i))
                 res += tr[i];
             return res;
