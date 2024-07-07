@@ -70,21 +70,16 @@ namespace virmar {
         int a[virmar::N_MTX][virmar::N_MTX];
 
     public:
-        matrix(int flag = 0) {
-            mset(a, 0);
-            if (flag) {
-                n = m = flag;
-                for (int i = 1; i <= flag; i++) a[i][i] = 1;
-            }
-            mod = 1 << 31;
+        matrix(int n = 0, int m = 0, int mod = 1000) {
+            this -> n = n;
+            this -> m = m;
+            this -> mod = mod;
         }
 
         int* operator[](int i) {return a[i];}
 
         matrix operator*(matrix t) {
-            matrix res;
-            res.n = n, res.m = t.m;
-            res.mod = mod;
+            matrix res(n, t.m, mod);
             for (int k = 1; k <= m; k++)
                 for (int i = 1; i <= n; i++)
                     for (int j = 1; j <= t.m; j++)
@@ -93,12 +88,10 @@ namespace virmar {
         }
 
         matrix operator+(matrix t) {
-            matrix res;
-            res.n = n, res.m = t.m;
-            res.mod = mod;
+            matrix res(n, t.m, mod);
             for (int i = 1; i <= n; i++)
                 for (int j = 1; j <= m; j++)
-                    res[i][j] = (a[i][j] + t[i][j]) % m;
+                    res[i][j] = (a[i][j] + t[i][j]) % mod;
             return res;
         }
     };
