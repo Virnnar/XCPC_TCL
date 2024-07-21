@@ -11,6 +11,7 @@
 #include<unordered_map>
 #include<algorithm>
 #include<numeric>
+#include<set>
 
 #define mset(a, t) memset(a, t, sizeof a)
 
@@ -43,7 +44,7 @@ namespace virmar {
         return x * f;
     }
 
-    ll qpow(ll a, ll b, ll p = 1 << 31) {
+    ll qpow(ll a, ll b, ll p = 1ll << 31ll) {
         ll res = 1 % p;
         while (b) {
             if (b & 1) res = (res * a) % p;
@@ -122,6 +123,10 @@ namespace virmar {
             return res;
         }
     };
+
+    inline ll gcd(ll a, ll b) {
+        return b ? gcd(b, a % b) : a;
+    }
 }
 
 #endif
