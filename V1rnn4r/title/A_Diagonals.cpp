@@ -1,6 +1,3 @@
-#ifndef VIRMAR_H
-#define VIRMAR_H
-
 #include<iostream>
 #include<cstdio>
 #include<cstring>
@@ -11,19 +8,15 @@
 #include<unordered_map>
 #include<algorithm>
 #include<numeric>
-#include<set>
-#include<functional>
 
 #define mset(a, t) memset(a, t, sizeof a)
-#define all(a) a.begin(), a.end()
-
 
 namespace virmar {
     using namespace std;
     using ll = long long;
 
-    const int N_BIT = 500006, N_MTX = 100, N_GPH = 1E5;
-    const ll INF = 0X3F3F3F3F3F3F3F3F;
+    const int N_BIT = 500006, N_MTX = 100;
+    const int INF = 0X3F3F3F3F;
 
     bool READ_ARC = false;
 
@@ -47,8 +40,8 @@ namespace virmar {
         return x * f;
     }
 
-    ll qpow(ll a, ll b, ll p = 1ll << 62ll) {
-        ll res = 1;
+    ll qpow(ll a, ll b, ll p = 1 << 31) {
+        ll res = 1 % p;
         while (b) {
             if (b & 1) res = (res * a) % p;
             a = (a * a) % p;
@@ -67,14 +60,14 @@ namespace virmar {
         return a * b / gcd<T>(a, b);
     }
 
-    class Matrix {
+    class matrix {
     public:
         int n, m;
         int mod;
         int a[virmar::N_MTX][virmar::N_MTX];
 
     public:
-        Matrix(int n = 0, int m = 0, int mod = 1000) {
+        matrix(int n = 0, int m = 0, int mod = 1000) {
             this -> n = n;
             this -> m = m;
             this -> mod = mod;
@@ -82,8 +75,8 @@ namespace virmar {
 
         int* operator[](int i) {return a[i];}
 
-        Matrix operator*(Matrix t) {
-            Matrix res(n, t.m, mod);
+        matrix operator*(matrix t) {
+            matrix res(n, t.m, mod);
             for (int k = 1; k <= m; k++)
                 for (int i = 1; i <= n; i++)
                     for (int j = 1; j <= t.m; j++)
@@ -91,8 +84,8 @@ namespace virmar {
             return res;
         }
 
-        Matrix operator+(Matrix t) {
-            Matrix res(n, t.m, mod);
+        matrix operator+(matrix t) {
+            matrix res(n, t.m, mod);
             for (int i = 1; i <= n; i++)
                 for (int j = 1; j <= m; j++)
                     res[i][j] = (a[i][j] + t[i][j]) % mod;
@@ -126,21 +119,26 @@ namespace virmar {
             return res;
         }
     };
+}
 
-    class Graph {
-    public:
-        struct {int next, to, dis;} e[N_GPH<<2];
-        int head[N_GPH], num;
-    public:
-        void add(int from, int to, int dis) {
-            e[num] = {head[from], to, dis};
-            head[from] = num++;
-        }
-    };
+using namespace virmar;
 
-    inline ll gcd(ll a, ll b) {
-        return b ? gcd(b, a % b) : a;
+void doit() {
+    int n, k; cin >> n >> k;
+    if (k == 0) return puts("0"), void();
+    if (k <= n) return puts("1"), void();
+    ll now = n, cnt = 1;
+    for (int i = n - 1; i >= 1; i--) {
+        now += i, cnt++;
+        if (k <= now) return cout << cnt << endl, void();
+        now += i, cnt++;
+        if (k <= now) return cout << cnt << endl, void();
     }
 }
 
-#endif
+int main() {
+    virmar::READ_ARC = false;
+    int T = 1; cin >> T;
+    while (T--) doit();
+    return 0;
+}

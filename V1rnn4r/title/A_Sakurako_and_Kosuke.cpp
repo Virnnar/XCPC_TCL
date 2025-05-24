@@ -4,9 +4,8 @@ using namespace virmar;
 
 void doit() {
     int n; cin >> n;
-    vector<int> a(n);
-    for (auto &i: a) cin >> i;
-    
+    if (n % 2) puts("Kosuke");
+    else puts("Sakurako");
 }
 
 int main() {
