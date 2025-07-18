@@ -5,6 +5,9 @@ using namespace virmar;
 void init();
 
 void doit() {
+    int n; cin >> n;
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; i++) cin >> a[i];
     
 }
 

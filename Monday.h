@@ -13,6 +13,7 @@
 #include<numeric>
 #include<set>
 #include<functional>
+#include<stack>
 
 #define mset(a, t) memset(a, t, sizeof a)
 #define all(a) a.begin(), a.end()
@@ -22,7 +23,7 @@ namespace virmar {
     using namespace std;
     using ll = long long;
 
-    const int N_BIT = 500006, N_MTX = 100, N_GPH = 1E5;
+    const int N_BIT = 500006, N_MTX = 100, N_GPH = 2E5;
     const ll INF = 0X3F3F3F3F3F3F3F3F;
 
     bool READ_ARC = false;
@@ -48,6 +49,7 @@ namespace virmar {
     }
 
     ll qpow(ll a, ll b, ll p = 1ll << 62ll) {
+        if (b == 0) return 1ll;
         ll res = 1;
         while (b) {
             if (b & 1) res = (res * a) % p;
@@ -124,17 +126,6 @@ namespace virmar {
             for (int i = p; i; i -= lowbit(i))
                 res += tr[i];
             return res;
-        }
-    };
-
-    class Graph {
-    public:
-        struct {int next, to, dis;} e[N_GPH<<2];
-        int head[N_GPH], num;
-    public:
-        void add(int from, int to, int dis) {
-            e[num] = {head[from], to, dis};
-            head[from] = num++;
         }
     };
 

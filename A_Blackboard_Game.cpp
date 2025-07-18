@@ -5,7 +5,8 @@ using namespace virmar;
 void init();
 
 void doit() {
-    
+    int n; cin >> n;
+    puts(n % 4 ? "Alice" : "Bob");
 }
 
 signed main() {

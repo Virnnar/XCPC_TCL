@@ -5,7 +5,11 @@ using namespace virmar;
 void init();
 
 void doit() {
-    
+    int n, j, k; cin >> n >> j >> k;
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; i++) cin >> a[i];
+    if (k == 1 and *max_element(all(a)) != a[j]) return puts("NO"), void();
+    puts("YES");
 }
 
 signed main() {

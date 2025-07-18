@@ -5,7 +5,10 @@ using namespace virmar;
 void init();
 
 void doit() {
-    
+    int n, k; cin >> n >> k;
+    string s; cin >> s;
+    int cnt = count(all(s), '1');
+    puts(cnt <= k or n < 2 * k ? "Alice" : "Bob");
 }
 
 signed main() {

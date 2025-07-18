@@ -18,9 +18,9 @@ void doit() {
             eve[0] = min(eve[0], i);
             eve[1] = max(eve[1], i);
         }
-    cout << min(odd[0] + odd[1], eve[0] + eve[1]) << endl;
-
+    cout << min(odd[0] + n - 1 - odd[1], eve[0] + n - 1 - eve[1]) << endl;
 }
+// 1 1 2 3 4 5 9
 
 int main() {
     virmar::READ_ARC = false;
